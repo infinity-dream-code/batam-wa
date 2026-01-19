@@ -1,0 +1,59 @@
+{
+    "pages": [
+        {
+            "name": "Beranda",
+            "icon": "ri ri-home-smile-2-line",
+            "url": "/admin"
+        },
+        {
+            "name": "Master Data <i class=\"ri-arrow-right-circle-line\"></i> Master Kelas",
+            "icon": "ri ri-list-indefinite",
+            "url": "/admin/master-data/master-kelas"
+        },
+        {
+            "name": "Master Data <i class=\"ri-arrow-right-circle-line\"></i> Tahun Akademik",
+            "icon": "ri ri-list-indefinite",
+            "url": "/admin/master-data/tahun-akademik"
+        },
+        {
+            "name": "Master Data <i class=\"ri-arrow-right-circle-line\"></i> Master Post",
+            "icon": "ri ri-list-indefinite",
+            "url": "/admin/master-data/master-post"
+        },
+        {
+            "name": "Master Data <i class=\"ri-arrow-right-circle-line\"></i> Data Siswa",
+            "icon": "ri ri-list-indefinite",
+            "url": "/admin/master-data/data-siswa"
+        },
+        {
+            "name": "Keuangan <i class=\"ri-arrow-right-circle-line\"></i> Tagihan Siswa<i class=\"ri-arrow-right-circle-line\"></i> Buat Tagihan",
+            "icon": "ri ri-bank-line",
+            "url": "/admin/keuangan/tagihan-siswa/buat-tagihan"
+        },
+        {
+            "name": "Keuangan <i class=\"ri-arrow-right-circle-line\"></i> Tagihan Siswa<i class=\"ri-arrow-right-circle-line\"></i> Data Tagihan",
+            "icon": "ri ri-bank-line",
+            "url": "/admin/keuangan/tagihan-siswa/buat-tagihan"
+        },
+        {
+            "name": "Keuangan <i class=\"ri-arrow-right-circle-line\"></i> Manual Bayar",
+            "icon": "ri ri-bank-line",
+            "url": "/admin/keuangan/pembayaran-manual"
+        },
+        {
+            "name": "Keuangan <i class=\"ri-arrow-right-circle-line\"></i> Penerimaan Siswa<i class=\"ri-arrow-right-circle-line\"></i> Data Penerimaan",
+            "icon": "ri ri-bank-line",
+            "url": "/admin/keuangan/penerimaaan-siswa/data-penerimaaan"
+        },
+        {
+            "name": "Keuangan <i class=\"ri-arrow-right-circle-line\"></i> Penerimaan Siswa<i class=\"ri-arrow-right-circle-line\"></i> Rekap Penerimaan",
+            "icon": "ri ri-bank-line",
+            "url": "/admin/keuangan/penerimaaan-siswa/rekap_penerimaan"
+        },
+        {
+            "name": "Keuangan <i class=\"ri-arrow-right-circle-line\"></i> Saldo <i class=\"ri-arrow-right-circle-line\"></i> Saldo Virtual Account",
+            "icon": "ri ri-bank-line",
+            "url": "/admin/keuangan/saldo/saldo-virtual-account"
+        }
+    ]
+}
