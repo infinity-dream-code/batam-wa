@@ -478,18 +478,39 @@ class NotifikasiWhatsappTagihanController extends Controller
 
                         $lastNumber = $functionResult->fetch_row()[0];
 
-                        $jsonPayload = json_encode($payload);
-                        $response = Http::withBody(
-                            $jsonPayload,
-                            "application/json",
-                        )->post($url);
-                        Log::error("Wa Response: " . $response);
+                        if ($payload["api_key"] !== "wasenderapi") {
+                            $jsonPayload = json_encode($payload);
+                            $response = Http::withBody(
+                                $jsonPayload,
+                                "application/json",
+                            )->post($url);
+                            Log::error("Wa Response watzap: " . $response);
+
+                            $arrResponse = json_decode($response, true);
+                            $status = $arrResponse["status"];
+                            $responseMessage = $arrResponse["message"];
+                        } else {
+                            $response = Http::withToken($payload["number_key"])
+                                ->acceptJson()
+                                ->post(
+                                    "https://www.wasenderapi.com/api/send-message",
+                                    [
+                                        "to" => $payload["phone_no"],
+                                        "text" => $payload["message"],
+                                    ],
+                                );
+                            Log::error("Wa Response wasenderapi: " . $response);
+
+                            $arrResponse = $response->json();
+                            $status = $arrResponse["success"];
+                            $responseMessage = $status
+                                ? $arrResponse["data"]["status"] ?? "Success"
+                                : $arrResponse["message"] ?? "Gagal (unknown)";
+                        }
 
                         $randomDelay = rand(1100000, 3200000);
                         usleep($randomDelay);
 
-                        $arrResponse = json_decode($response, true);
-                        $status = $arrResponse["status"];
                         $wa = $NoHP;
 
                         $arrayResponse = json_encode($arrResponse);
@@ -499,7 +520,7 @@ class NotifikasiWhatsappTagihanController extends Controller
                             "', '" .
                             $status .
                             "', '" .
-                            $arrResponse["message"] .
+                            $responseMessage .
                             "', " .
                             $lastNumber .
                             ")";
