@@ -331,7 +331,7 @@ class NotifikasiWhatsappController extends Controller
 
                         $lastNumber = $functionResult->fetch_row()[0];
 
-                        if ($payload["api_key"] !== '$payload') {
+                        if ($payload["api_key"] !== 'wasenderapi') {
                             $jsonPayload = json_encode($payload);
                             $response = Http::withBody(
                                 $jsonPayload,
