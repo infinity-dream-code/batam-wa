@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Utilitas;
 
+use App\Helpers\PhoneNumberHelper;
 use App\Http\Controllers\Controller;
 use App\Models\LogModel;
 use Illuminate\Http\Request;
@@ -157,10 +158,7 @@ class NotifikasiWhatsappGajiController extends Controller
 
     private function formatNomor($nomor)
     {
-        $nomor = preg_replace("/[^0-9]/", "", $nomor);
-        if (substr($nomor, 0, 1) === "0") {
-            $nomor = "62" . substr($nomor, 1);
-        }
+        $nomor = PhoneNumberHelper::format($nomor);
         return $nomor;
     }
 
@@ -219,7 +217,7 @@ class NotifikasiWhatsappGajiController extends Controller
                     Log::error("Wa Response wasenderapi: " . $response);
 
                     $arrResponse = $response->json();
-                    $status = $arrResponse["success"];
+                    $status = $arrResponse["success"] ?? false;
                     $responseMessage = $status
                         ? $arrResponse["data"]["status"] ?? "Success"
                         : $arrResponse["message"] ?? "Gagal (unknown)";

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Utilitas;
 
 use App\Helpers\Messages;
+use App\Helpers\PhoneNumberHelper;
 use App\Http\Controllers\Controller;
 use App\Models\LogModel;
 use App\Models\LogWhatsappsModel;
@@ -370,7 +371,8 @@ class NotifikasiWhatsappTagihanController extends Controller
         foreach ($siswa as $siswas) {
             try {
                 if ($siswas->NO_WA != null) {
-                    $NoHP = preg_replace("/[^0-9]/", "", $siswas->NO_WA);
+                    $NoHP = PhoneNumberHelper::format($siswas->NO_WA);
+
                     $messages = Messages::wa("Tagihan");
                     $randomArray = Arr::random($messages);
 
@@ -502,7 +504,7 @@ class NotifikasiWhatsappTagihanController extends Controller
                             Log::error("Wa Response wasenderapi: " . $response);
 
                             $arrResponse = $response->json();
-                            $status = $arrResponse["success"];
+                            $status = $arrResponse["success"] ?? false;
                             $responseMessage = $status
                                 ? $arrResponse["data"]["status"] ?? "Success"
                                 : $arrResponse["message"] ?? "Gagal (unknown)";

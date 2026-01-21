@@ -272,8 +272,7 @@ class NotifikasiWhatsappController extends Controller
         foreach ($siswas as $siswa) {
             try {
                 if ($siswa->NO_WA != null) {
-                    $NoHP = preg_replace("/[^0-9]/", "", $siswa->NO_WA);
-                    $NoHP = PhoneNumberHelper::format($NoHP);
+                    $NoHP = PhoneNumberHelper::format($siswas->NO_WA);
 
                     $dbTraffic = new \mysqli(
                         "10.99.23.20",
