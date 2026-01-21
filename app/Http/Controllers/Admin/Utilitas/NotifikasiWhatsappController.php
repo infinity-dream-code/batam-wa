@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Utilitas;
 
+use App\Helpers\PhoneNumberHelper;
 use App\Http\Controllers\Controller;
 use App\Models\LogModel;
 use App\Models\LogWhatsappsModel;
@@ -272,6 +273,7 @@ class NotifikasiWhatsappController extends Controller
             try {
                 if ($siswa->NO_WA != null) {
                     $NoHP = preg_replace("/[^0-9]/", "", $siswa->NO_WA);
+                    $NoHP = PhoneNumberHelper::format($NoHP);
 
                     $dbTraffic = new \mysqli(
                         "10.99.23.20",
