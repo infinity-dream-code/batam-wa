@@ -357,7 +357,7 @@ class NotifikasiWhatsappController extends Controller
                             Log::error("Wa Response wasenderapi: " . $response);
 
                             $arrResponse = $response->json();
-                            $status = $arrResponse["success"];
+                            $status = $arrResponse["success"] ?? false;
                             $responseMessage = $status
                                 ? $arrResponse["data"]["status"] ?? "Success"
                                 : $arrResponse["message"] ?? "Gagal (unknown)";
