@@ -1,8 +1,8 @@
 @extends('layouts.admin_new')
 @section('style')
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-fixedheader-bs5/fixedheader.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-bs5/datatables.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-fixedheader-bs5/fixedheader.bootstrap5.css')}}">
 @endsection
 @section('content')
     <h3 class="page-heading d-flex text-gray-900 fw-bold flex-column justify-content-center my-0">
@@ -125,10 +125,10 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('main/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
+    <script src="{{asset('main/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
     <script src="{{asset('js/datatableCustom/Datatable0-2.js')}}"></script>
-    <script src="{{asset('main/vendor/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('main/vendor/libs/select2/id.min.js')}}"></script>
+    <script src="{{asset('main/libs/select2/select2.js')}}"></script>
+    <script src="{{asset('main/libs/select2/id.min.js')}}"></script>
 
     <script type="text/javascript">
         let dataColumns = [];

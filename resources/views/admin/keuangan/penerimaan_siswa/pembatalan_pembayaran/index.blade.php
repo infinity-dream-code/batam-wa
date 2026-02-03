@@ -1,11 +1,11 @@
 @extends('layouts.admin_new')
 @section('style')
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/select2/select2.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/select2/select2.css')}}">
 
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-select-bs5/select.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-bs5/datatables.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-select-bs5/select.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-checkboxes-jquery/datatables.checkboxes.css')}}">
 
 @endsection
 @section('content')
@@ -133,8 +133,8 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('main/vendor/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('main/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
+    <script src="{{asset('main/libs/select2/select2.js')}}"></script>
+    <script src="{{asset('main/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
 
     <script type="text/javascript">
         let dataColumns = [];

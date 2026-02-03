@@ -1,9 +1,9 @@
 @extends('layouts.admin_new')
 @section('style')
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/select2/select2.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/select2/select2.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-bs5/datatables.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/bootstrap-datepicker/bootstrap-datepicker.css')}}">
 @endsection
 @section('content')
     <h3 class="page-heading d-flex text-gray-900 fw-bold flex-column justify-content-center my-0">
@@ -110,10 +110,10 @@
 @section('script')
     <meta name="csrf-token" content="{{ csrf_token() }}" xmlns="http://www.w3.org/1999/html">
 
-    <script src="{{asset('main/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
-    <script src="{{asset('main/vendor/libs/select2/select2.js')}}"></script>
+    <script src="{{asset('main/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
+    <script src="{{asset('main/libs/select2/select2.js')}}"></script>
     <script src="{{asset('js/datatableCustom/Datatable0-2.js')}}"></script>
-    <script src="{{asset('main/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('main/libs/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
 
     <script type="text/javascript">
         let dataColumns = [];
@@ -240,7 +240,7 @@
                 if (formId) {
                     let filterForm = $(`#${formId}`);
                     filterForm.on('submit', function (e) {
-                        
+
                         e.preventDefault();
                         var dariTanggal = $('#dari-tanggal').val();
                         var sampaiTanggal = $('#sampai-tanggal').val();

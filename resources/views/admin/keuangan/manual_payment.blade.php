@@ -1,7 +1,7 @@
 @extends('layouts.admin_new')
 @section('style')
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/select2/select2.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/select2/select2.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/bootstrap-datepicker/bootstrap-datepicker.css')}}">
 
 @endsection
 @section('content')
@@ -159,8 +159,8 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('main/vendor/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('main/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('main/libs/select2/select2.js')}}"></script>
+    <script src="{{asset('main/libs/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
 
 
     <script type="text/javascript">

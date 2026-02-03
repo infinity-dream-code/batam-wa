@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 <meta name="csrf-token" content="{{ csrf_token() }}" xmlns="http://www.w3.org/1999/html">
-<link rel="stylesheet" href="{{asset('main/vendor/libs/select2/select2.css')}}">
+<link rel="stylesheet" href="{{asset('main/libs/select2/select2.css')}}">
 
 <form id="addForm" class="mainForm">
     <div class="modal modal-blur fade" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true"

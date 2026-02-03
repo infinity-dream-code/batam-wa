@@ -243,7 +243,7 @@
     </div>
 @endsection
 @section('script')
-    <script src="{{asset('main/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+    <script src="{{asset('main/libs/apex-charts/apexcharts.js')}}"></script>
 
     <script>
         let labelColor, headingColor, currentTheme, bodyColor;

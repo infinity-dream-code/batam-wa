@@ -1,9 +1,9 @@
 @extends('layouts.admin_new')
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('main/vendor/libs/select2/select2.css') }}">
-    <link rel="stylesheet" href="{{ asset('main/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
-    <link rel="stylesheet" href="{{ asset('main/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('main/libs/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('main/libs/datatables-bs5/datatables.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('main/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
     <style>
         table.dataTable tr.selected {
             border-top: 2px solid var(--bs-primary);

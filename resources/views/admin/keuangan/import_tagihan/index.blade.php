@@ -1,8 +1,8 @@
 @extends('layouts.admin_new')
 @section('style')
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/select2/select2.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-bs5/datatables.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
+    <link rel="stylesheet" href="{{asset('main/libs/select2/select2.css')}}">
 @endsection
 @section('content')
     <div class="row row-cols-1 row-cols-lg-2 pb-3">
@@ -302,7 +302,7 @@
         </div>
     </form>
 
-    <script src="{{asset('main/vendor/libs/select2/select2.js')}}"></script>
+    <script src="{{asset('main/libs/select2/select2.js')}}"></script>
 
 
     <link rel="stylesheet" href="{{asset('libs/filepond/dist/filepond.min.css')}}">
@@ -314,7 +314,7 @@
     <script src="{{asset('libs/filepond/dist/filepond.min.js')}}"></script>
     <script src="{{asset('libs/filepond/dist/filepond.jquery.js')}}"></script>
 
-    <script src="{{asset('main/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
+    <script src="{{asset('main/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
     <script src="{{asset('js/datatableCustom/Datatable0-2.js')}}"></script>
 
     <script type="text/javascript">
