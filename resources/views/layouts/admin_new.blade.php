@@ -29,15 +29,15 @@
         rel="stylesheet"/>
 
     <!-- Icons -->
-    <link rel="stylesheet" href="{{asset('main/vendor/fonts/remixicons/remixicon.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('main/fonts/remixicons/remixicon.min.css')}}"/>
 
     <!-- Menu waves for no-customizer fix -->
-    {{--    <link rel="stylesheet" href="{{asset('main/vendor/libs/node-waves/node-waves.css')}}"/>--}}
+    {{--    <link rel="stylesheet" href="{{asset('main/libs/node-waves/node-waves.css')}}"/>--}}
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}"/>
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/sweetalert2/sweetalert2.css')}}"/>
-    <link rel="stylesheet" href="{{asset('main/vendor/libs/spinkit/spinkit.css')}}"/>
+    <link rel="stylesheet" href="{{asset('main/libs/perfect-scrollbar/perfect-scrollbar.css')}}"/>
+    <link rel="stylesheet" href="{{asset('main/libs/sweetalert2/sweetalert2.css')}}"/>
+    <link rel="stylesheet" href="{{asset('main/libs/spinkit/spinkit.css')}}"/>
 
     <!-- Page CSS -->
     @yield('style')
@@ -45,8 +45,8 @@
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{asset('css/demo.css')}}"/>
 
-    <link rel="stylesheet" href="{{asset('main/vendor/css/core.css')}}" class="template-customizer-core-css"/>
-    <link rel="stylesheet" href="{{asset('main/vendor/css/theme-default.css')}}" class="template-customizer-theme-css"/>
+    <link rel="stylesheet" href="{{asset('main/css/core.css')}}" class="template-customizer-core-css"/>
+    <link rel="stylesheet" href="{{asset('main/css/theme-default.css')}}" class="template-customizer-theme-css"/>
 
     <style>
         .form-fieldset {
@@ -81,10 +81,10 @@
         }
     </style>
     <!-- Helpers -->
-    <script src="{{asset('main/vendor/js/helpers.js')}}"></script>
+    <script src="{{asset('main/js/helpers.js')}}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="{{asset('main/vendor/js/template-customizer.js')}}"></script>
+    <script src="{{asset('main/js/template-customizer.js')}}"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{asset('js/config.js')}}"></script>
 
@@ -248,15 +248,15 @@
 <!-- / Layout wrapper -->
 
 <!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
-<script src="{{asset('main/vendor/libs/jquery/jquery.js')}}"></script>
-<script src="{{asset('main/vendor/js/bootstrap.js')}}"></script>
-<script src="{{asset('main/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-<script src="{{asset('main/vendor/js/menu.js')}}"></script>
+<!-- build:js assets/js/core.js -->
+<script src="{{asset('main/libs/jquery/jquery.js')}}"></script>
+<script src="{{asset('main/js/bootstrap.js')}}"></script>
+<script src="{{asset('main/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+<script src="{{asset('main/js/menu.js')}}"></script>
 <!-- endbuild -->
 
 <!-- Vendors JS -->
-<script src="{{asset('main/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+<script src="{{asset('main/libs/sweetalert2/sweetalert2.js')}}"></script>
 <!-- Main JS -->
 <script src="{{asset('js/main.js')}}"></script>
 
