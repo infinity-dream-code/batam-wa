@@ -360,7 +360,7 @@ class NotifikasiWhatsappTanggunganController extends Controller
             );
         }
         $idSiswaKeys = array_keys($request->tagihan);
-        $siswa = ScctcustModel::whereIn("CUSTID", $idSiswaKeys)
+        $siswas = ScctcustModel::whereIn("CUSTID", $idSiswaKeys)
             ->select("CUSTID", "NO_WA", "NMCUST", "NOCUST", "GENUS")
             ->get();
         // $payload = [
@@ -368,7 +368,7 @@ class NotifikasiWhatsappTanggunganController extends Controller
         //     "number_key" => "k6Hp1h9TSlRuo97c",
         // ];
 
-        if ($siswa->count() >= 100) {
+        if ($siswas->count() >= 100) {
             return response()->json(
                 [
                     "message" =>
@@ -387,17 +387,20 @@ class NotifikasiWhatsappTanggunganController extends Controller
         $log->status = "kirim whatsapp";
         $log->save();
 
-        foreach ($siswa as $siswas) {
+        $nasabah = "Yogya_Muallimaat";
+        $pesan = "Pesan Whatsapp sedang dalam proses pengiriman!";
+
+        foreach ($siswas as $siswa) {
             try {
-                if ($siswas->NO_WA != null) {
-                    $NoHP = PhoneNumberHelper::format($siswas->NO_WA);
+                if ($siswa->NO_WA != null) {
+                    $NoHP = PhoneNumberHelper::format($siswa->NO_WA);
 
                     $messages = Messages::wa("Tanggungan");
                     $randomArray = Arr::random($messages);
 
-                    $id_tagihan_array = $tagihan[$siswas->CUSTID];
+                    $id_tagihan_array = $tagihan[$siswa->CUSTID];
 
-                    $rincian = ScctBillModel::where("CUSTID", $siswas->CUSTID)
+                    $rincian = ScctBillModel::where("CUSTID", $siswa->CUSTID)
                         ->whereIn("AA", $id_tagihan_array)
                         ->where("PAIDST", 0)
                         ->where("scctbill.FSTSBolehBayar", 1)
@@ -426,8 +429,8 @@ class NotifikasiWhatsappTanggunganController extends Controller
                             "{rincian}",
                         ],
                         [
-                            $siswas->NMCUST ?? "",
-                            $siswas->GENUS,
+                            $siswa->NMCUST ?? "",
+                            $siswa->GENUS,
                             $jumlah_tagihan,
                             $rincianString,
                         ],
