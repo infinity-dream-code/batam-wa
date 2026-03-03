@@ -255,7 +255,7 @@ class NotifikasiWhatsappController extends Controller
         //     'method' => 'SEND_SISWA',
         // ];
 
-         dd($siswas);
+//         dd($siswas);
         $log = new LogModel();
         $log->user_id = auth()->check() ? auth()->user()->id : null;
         $log->menu = "Whatsapp notif";
