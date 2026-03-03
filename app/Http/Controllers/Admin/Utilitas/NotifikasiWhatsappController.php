@@ -180,8 +180,7 @@ class NotifikasiWhatsappController extends Controller
                 }
                 break;
             case "kelas":
-                $siswas = ScctcustModel::select("CUSTID", "NMCUST", "NOCUST")
-                    ->where("DESC03", $kelas)
+                $siswas = ScctcustModel::where("DESC03", $kelas)
                     ->where("DESC02", $jenjang)
                     ->where("CODE02", $unit)
                     ->whereIn("NOCUST", $request->input("siswa"))
@@ -256,7 +255,7 @@ class NotifikasiWhatsappController extends Controller
         //     'method' => 'SEND_SISWA',
         // ];
 
-        // dd($siswas);
+         dd($siswas);
         $log = new LogModel();
         $log->user_id = auth()->check() ? auth()->user()->id : null;
         $log->menu = "Whatsapp notif";
@@ -270,8 +269,8 @@ class NotifikasiWhatsappController extends Controller
         $nasabah = "Yogya_Muallimaat";
         foreach ($siswas as $siswa) {
             try {
-                if ($siswa->NO_WA != null) {
-                    $NoHP = PhoneNumberHelper::format($siswas->NO_WA);
+                if ($siswa['NO_WA'] != null) {
+                    $NoHP = PhoneNumberHelper::format($siswas['NO_WA']);
                     try {
                         $fixPesan = str_replace("'", "", $pesan);
 
