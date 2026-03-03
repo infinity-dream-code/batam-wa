@@ -302,7 +302,7 @@ class NotifikasiWhatsappController extends Controller
                         throw $e;
                     }
                 }
-            } catch (Exception $e) {
+            } catch (\Throwable $e) {
                 return response()->json(
                     ["error" => true, "message" => $e],
                     500,
