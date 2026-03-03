@@ -268,6 +268,7 @@ class NotifikasiWhatsappController extends Controller
 
         $nasabah = "Yogya_Muallimaat";
         foreach ($siswas as $siswa) {
+                     dd($siswa);
             try {
                 if ($siswa['NO_WA'] != null) {
                     $NoHP = PhoneNumberHelper::format($siswas['NO_WA']);
