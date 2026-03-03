@@ -270,7 +270,6 @@ class NotifikasiWhatsappController extends Controller
         $nasabah = "Yogya_Muallimaat";
         foreach ($siswas as $siswa) {
             try {
-                dd($siswa);
                 if ($siswa->NO_WA != null) {
                     $NoHP = PhoneNumberHelper::format($siswas->NO_WA);
                     try {
@@ -305,7 +304,7 @@ class NotifikasiWhatsappController extends Controller
                 }
             } catch (Exception $e) {
                 return response()->json(
-                    ["error" => true, "message" => $e->getMessage()],
+                    ["error" => true, "message" => $e],
                     500,
                 );
             }
