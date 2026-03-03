@@ -153,7 +153,7 @@ class NotifikasiWhatsappGajiController extends Controller
             $this->kirimPesan($request, $nomor, $pesan, $row[0], $nama);
         }
 
-        return back()->with("success", "Pesan berhasil dikirim");
+        return back()->with("success", "Pesan sedang dalam proses pengiriman");
     }
 
     private function formatNomor($nomor)
@@ -165,130 +165,11 @@ class NotifikasiWhatsappGajiController extends Controller
     private function kirimPesan(Request $request, $nomor, $pesan, $no, $nama)
     {
         $nomor = $this->formatNomor($nomor);
-        $status = "10";
-        $response = null;
-        $messageFail = "Pesan gagal dikirim";
 
-        $dbTraffic = new \mysqli(
-            "10.99.23.26",
-            "root",
-            "Smartpay1ct",
-            "farrelep_broadcaster",
-        );
+        $payload['phone_no'] = $nomor;
+        $payload['message'] = $pesan;
+        $nasabah = "Yogya_Muallimaat";
 
-        $apiKeyResult = $dbTraffic->query(
-            "SELECT GetWAApiSecret('Yogya_Muallimaat')",
-        );
-        if (!$apiKeyResult) {
-            logger("Gagal mengambil API Key: " . $dbTraffic->error);
-            return;
-        }
-
-        $apiKeyRow = $apiKeyResult->fetch_array(MYSQLI_NUM);
-        if ($apiKeyRow && isset($apiKeyRow[0])) {
-            [$hostKey, $clientNumberKey] = explode("|", $apiKeyRow[0], 2);
-
-            $payload = [
-                "api_key" => $hostKey,
-                "number_key" => $clientNumberKey,
-                "phone_no" => $nomor,
-                "message" => $pesan,
-            ];
-
-            try {
-                if ($payload["api_key"] !== "wasenderapi") {
-                    $jsonPayload = json_encode($payload);
-                    $response = Http::withBody(
-                        $jsonPayload,
-                        "application/json",
-                    )->post("https://api.watzap.id/v1/send_message");
-                    Log::error("Wa Response watzap: " . $response);
-
-                    $arrResponse = json_decode($response, true);
-                    $status = $arrResponse["status"] ?? "-";
-                    $responseMessage = $arrResponse["message"];
-                } else {
-                    $response = Http::withToken($payload["number_key"])
-                        ->acceptJson()
-                        ->post("https://www.wasenderapi.com/api/send-message", [
-                            "to" => $payload["phone_no"],
-                            "text" => $payload["message"],
-                        ]);
-                    Log::error("Wa Response wasenderapi: " . $response);
-
-                    $arrResponse = $response->json();
-                    $status = $arrResponse["success"] ?? false;
-                    $responseMessage = $status
-                        ? $arrResponse["data"]["status"] ?? "Success"
-                        : $arrResponse["message"] ?? "Gagal (unknown)";
-                }
-
-                // $response = Http::withHeaders([
-                //     "Content-Type" => "application/json",
-                // ])->post("https://api.watzap.id/v1/send_message", $payload);
-
-                // Tambahkan delay setelah kirim pesan
-                usleep(rand(1100000, 3200000)); // 1.1 - 3.2 detik
-
-                if ($response->successful()) {
-                    try {
-                        $escapeMessage = $dbTraffic->real_escape_string($pesan);
-                        $functionQuery =
-                            "SELECT SentWA('Yogya_Muallimaat', '" .
-                            $nomor .
-                            "', '" .
-                            $clientNumberKey .
-                            "', '" .
-                            $escapeMessage .
-                            "')";
-                        $functionResult = $dbTraffic->query($functionQuery);
-
-                        if (!$functionResult) {
-                            throw new \Exception(
-                                "Error in SELECT function: " .
-                                    $dbTraffic->error,
-                            );
-                        }
-
-                        $lastNumber = $functionResult->fetch_row()[0];
-                        $arrayResponse = json_encode($arrResponse);
-
-                        $procedureQuery =
-                            "CALL GetResp('" .
-                            $arrayResponse .
-                            "', '" .
-                            $status .
-                            "', '" .
-                            $responseMessage .
-                            "', " .
-                            $lastNumber .
-                            ")";
-                        $procedureResult = $dbTraffic->query($procedureQuery);
-
-                        if (!$procedureResult) {
-                            throw new \Exception(
-                                "Error in CALL procedure: " . $dbTraffic->error,
-                            );
-                        }
-                    } catch (\Exception $e) {
-                        logger("WA Procedure Error: " . $e->getMessage());
-                    } finally {
-                        $dbTraffic->close();
-                    }
-                } else {
-                    logger("Gagal kirim ke $nomor: " . $response->body());
-                    $status = "error";
-                }
-            } catch (\Exception $e) {
-                logger("HTTP Exception: " . $e->getMessage());
-                $status = "error";
-                $response = $e->getMessage();
-            }
-        } else {
-            logger("API Key not found");
-        }
-
-        // Log aktivitas pengguna
         $log = new LogModel();
         $log->user_id = Auth::user()->id;
         $log->menu = "Whatsapp Gaji";
@@ -304,18 +185,24 @@ class NotifikasiWhatsappGajiController extends Controller
         try {
             DB::beginTransaction();
 
-            LogWhatsappsModel::create([
+            $newLog = LogWhatsappsModel::create([
                 "custid" => $no,
                 "log_id" => $idLog,
                 "user_id" => Auth::id(),
-                "status" => $status,
+                "status" => 0,
                 "no_wa" => $nomor,
-                "pesan" => $status === "error" ? $messageFail : $pesan,
+                "pesan" => $pesan,
                 "nama" => $nama,
-                "response" => is_string($response)
-                    ? $response
-                    : $response?->body() ?? "no response",
+                "response" => '',
             ]);
+
+            $sendData = DB::connection('mysql_wa')
+                ->select('CALL new_whatsapp_queue(:param1, :param2, :param3, :param4)', [
+                    'param1' => $nasabah,
+                    'param2' => $newLog->id,
+                    'param3' =>  $payload['phone_no'],
+                    'param4' => $payload['message']
+                ]);
 
             DB::commit();
         } catch (\Exception $e) {
