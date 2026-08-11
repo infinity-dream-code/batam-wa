@@ -179,8 +179,8 @@ class NotifikasiWhatsappTagihanController extends Controller
                     };
 
                     $colName &&
-                    ($filters[] =
-                        $colName == "scctcust.NMCUST" || "mst_siswas.nis"
+                        ($filters[] =
+                            $colName == "scctcust.NMCUST" || "mst_siswas.nis"
                             ? [$colName, "LIKE", "%" . $val . "%"]
                             : [$colName, "=", $val]);
                 }
@@ -348,7 +348,7 @@ class NotifikasiWhatsappTagihanController extends Controller
             return response()->json(
                 [
                     "message" =>
-                        "jumlah siswa yang dipilih tidak boleh lebih dari 100",
+                    "jumlah siswa yang dipilih tidak boleh lebih dari 100",
                 ],
                 413,
             );
@@ -363,7 +363,7 @@ class NotifikasiWhatsappTagihanController extends Controller
         $log->status = "kirim whatsapp";
         $log->save();
 
-        $nasabah = "Yogya_Muallimaat";
+        $nasabah = "Batam_Hidayatullah";
         $pesan = "Pesan Whatsapp sedang dalam proses pengiriman!";
 
         foreach ($siswas as $siswa) {
