@@ -41,7 +41,7 @@ class NotifikasiWhatsappGajiController extends Controller
 
             $pesan = <<<EOD
             GAJI GURU TSANAWIYAH
-            MADRASAH MU'ALLIMAAT MUHAMMADIYAH YOGYAKARTA
+            BATAM HIDAYATULLAH
 
             No: {$row[0]}
             Nama: {$nama}
@@ -75,7 +75,7 @@ class NotifikasiWhatsappGajiController extends Controller
                Jumlah                   : Rp {$row[24]}
             Jumlah Bersih               : Rp {$row[25]}
 
-                    Yogyakarta, {$formatTanggal}
+                    Batam, {$formatTanggal}
             Semoga menjadi rezeqi yang barokah, Aamiin.
             EOD;
 
@@ -104,7 +104,7 @@ class NotifikasiWhatsappGajiController extends Controller
             $formatTanggal = Carbon::now()->translatedFormat("d F Y");
             $pesan = <<<EOD
             GAJI GURU TETAP PERSYARIKATAN
-            MADRASAH MU'ALLIMAAT MUHAMMADIYAH YOGYAKARTA
+            BATAM HIDAYATULLAH
 
             No: {$row[0]}
             Nama: {$nama}
@@ -146,7 +146,7 @@ class NotifikasiWhatsappGajiController extends Controller
                 Jumlah     : Rp {$row[33]}
             Jumlah Bersih  : Rp {$row[34]}
 
-                    Yogyakarta, {$formatTanggal}
+                    Batam, {$formatTanggal}
             Semoga menjadi rezeqi yang barokah, Aamiin.
             EOD;
 
