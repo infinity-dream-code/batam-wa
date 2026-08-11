@@ -357,11 +357,6 @@
                     let filterForm = $(`#${formId}`);
                     filterForm.on('submit', function (e) {
                         e.preventDefault();
-                        let kelas = $('#index-kelas').val();
-                        if (kelas == '' || kelas == null) {
-                            warningAlert("Silahkan isi filter kelas terlebih dahulu");
-                            return;
-                        }
                         idTable.DataTable().rows('.selected').deselect();
                         selectedRows = {};
                         dataReFilter(tableId);

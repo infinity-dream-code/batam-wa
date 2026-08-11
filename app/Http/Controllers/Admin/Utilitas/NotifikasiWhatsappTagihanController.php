@@ -186,14 +186,19 @@ class NotifikasiWhatsappTagihanController extends Controller
                 }
             }
         }
-        if (isset($request->unit)) {
+        if ($request->filled('unit')) {
             $waduh = explode("-", $request->unit);
-            $jenjang = $waduh[0];
-            $unit = $waduh[1];
-            $kelas = $request->kelas;
-            $filters[] = ["scctcust.DESC02", "=", $jenjang];
-            $filters[] = ["scctcust.CODE02", "=", $unit];
-            $filters[] = ["scctcust.DESC03", "=", $kelas];
+            $jenjang = $waduh[0] ?? null;
+            $unit = $waduh[1] ?? null;
+            if ($jenjang !== null && $jenjang !== '') {
+                $filters[] = ["scctcust.DESC02", "=", $jenjang];
+            }
+            if ($unit !== null && $unit !== '') {
+                $filters[] = ["scctcust.CODE02", "=", $unit];
+            }
+            if ($request->filled('kelas')) {
+                $filters[] = ["scctcust.DESC03", "=", $request->kelas];
+            }
         }
 
         if (!empty($filters)) {

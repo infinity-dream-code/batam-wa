@@ -168,7 +168,7 @@ class NotifikasiWhatsappGajiController extends Controller
 
         $payload['phone_no'] = $nomor;
         $payload['message'] = $pesan;
-        $nasabah = "Yogya_Muallimaat";
+        $nasabah = "Batam_Hidayatullah";
 
         $log = new LogModel();
         $log->user_id = Auth::user()->id;

@@ -266,7 +266,7 @@ class NotifikasiWhatsappController extends Controller
         $log->status = "kirim whatsapp";
         $log->save();
 
-        $nasabah = "Yogya_Muallimaat";
+        $nasabah = "Batam_Hidayatullah";
         foreach ($siswas as $siswa) {
             try {
                 if ($siswa['NO_WA'] != null) {
