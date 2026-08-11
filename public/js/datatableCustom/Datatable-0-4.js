@@ -188,7 +188,7 @@ function dtButtons(options, buttons) {
             extend: 'pdf',
             title: '',
             text: '<i class="ri ri-file-pdf-2-line me-2"></i>Pdf',
-            modifier: {page: 'all'}
+            modifier: { page: 'all' }
         },
         csv: {
             extend: 'csv',
@@ -378,14 +378,14 @@ async function dataTableCreate(options) {
                 orderable: false,
                 className: options.select ? '' : ' table_dt_no',
                 checkboxes: options.select ? options.select === 'multi'
-                        ? {
-                            selectRow: true,
-                            selectAllRender: '<input type="checkbox" class="form-check-input select-all">'
-                        }
-                        : {
-                            selectRow: true,
-                            selectAll: false,
-                        }
+                    ? {
+                        selectRow: true,
+                        selectAllRender: '<input type="checkbox" class="form-check-input select-all">'
+                    }
+                    : {
+                        selectRow: true,
+                        selectAll: false,
+                    }
                     : false,
             }
         ],
@@ -845,6 +845,41 @@ async function getDT(options) {
                                         '': 'Nomor VA'
                                     };
                                     return descriptions[data] || data;
+                                }
+                                break;
+                            case 'custom_status_whatsapp':
+                                renderFunc = function (data, type, row) {
+                                    const descriptions = {
+                                        '0': 'Dalam Antrian',
+                                        '1': 'Diproses',
+                                        '2': 'Terkrim',
+                                        '3': 'Gagal',
+                                        '4': 'Dibatalkan',
+                                        '5': 'Diproses Ulang',
+                                        '200': 'Terkirim',
+                                        '500': 'Diproses',
+                                    };
+                                    const badgeColors = {
+                                        '0': 'bg-label-info',
+                                        '1': 'bg-label-info',
+                                        '2': 'bg-label-success',
+                                        '200': 'bg-label-success',
+                                        '3': 'bg-label-danger',
+                                        '4': 'bg-label-secondary',
+                                        '5': 'bg-label-info',
+                                        '500': 'bg-label-info',
+                                    };
+
+                                    const label = descriptions[data] || 'Gagal';
+                                    const color = badgeColors[data] || 'bg-label-danger';
+
+                                    if (type === 'display' || type === 'filter') {
+                                        return `<span class="badge rounded-pill px-3 py-1 ${color}">
+                                                    ${label}
+                                                </span>`;
+                                    }
+
+                                    return label;
                                 }
                                 break;
                         }

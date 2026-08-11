@@ -31,7 +31,7 @@ class LogWhatsappController extends Controller
             ['data' => 'nama_admin', 'name' => 'pengirim', 'searchable' => true, 'orderable' => true],
             ['data' => 'nama', 'name' => 'NAMA', 'searchable' => true, 'orderable' => true],
             ['data' => 'no_wa', 'name' => 'Nomor WhatsApp', 'searchable' => true, 'orderable' => true],
-            ['data' => 'status', 'name' => 'Status', 'orderable' => true, 'columnType' => 'boolean', 'trueVal' => 'Berhasil', 'falseVal' => 'Gagal'],
+            ['data' => 'status', 'name' => 'Status', 'orderable' => true, 'columnType' => 'custom_status_whatsapp', 'exportable' => true, "className" => "text-center fixed-column-3"],
             ['data' => 'created_at', 'name' => 'Tanggal', 'columnType' => 'timeStamp', 'searchable' => false, 'orderable' => false],
             ['data' => 'pesan', 'name' => 'Pesan', 'searchable' => true, 'orderable' => true],
         ];
