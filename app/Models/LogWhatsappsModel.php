@@ -21,4 +21,8 @@ class LogWhatsappsModel extends Model
         'log_id',
         'user_id',
     ];
+
+    protected $casts = [
+        'status' => 'integer',
+    ];
 }

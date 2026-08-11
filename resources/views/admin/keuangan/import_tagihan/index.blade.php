@@ -315,7 +315,7 @@
     <script src="{{asset('libs/filepond/dist/filepond.jquery.js')}}"></script>
 
     <script src="{{asset('main/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
-    <script src="{{asset('js/datatableCustom/Datatable0-2.js')}}"></script>
+    <script src="{{asset('js/datatableCustom/Datatable-0-4.min.js')}}"></script>
 
     <script type="text/javascript">
         let dataColumns = [];

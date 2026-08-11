@@ -8,7 +8,7 @@
 @endsection
 @section('content')
     <h3 class="page-heading d-flex text-gray-900 fw-bold flex-column justify-content-center my-0">
-        {{($dataTitle??($mainTitle??($title??'')))}}
+        {{($dataTitle ?? ($mainTitle ?? ($title ?? '')))}}
     </h3>
     <ul class="breadcrumb breadcrumb-style2">
         <li class="breadcrumb-item">
@@ -32,10 +32,10 @@
     </ul>
 
     <div class="card">
-    @csrf
+        @csrf
         <div class="card-header bg-card sticky-element">
             <div class="row mb-3">
-                <h5 class="mb-0 me-2">{{($dataTitle??$mainTitle)}}</h5>
+                <h5 class="mb-0 me-2">{{($dataTitle ?? $mainTitle)}}</h5>
             </div>
         </div>
         <div class="card-body">
@@ -50,10 +50,12 @@
                                         Pilih Tanggal
                                     </label>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Dari Tanggal" name="dari_tanggal" value="" id="dari-tanggal"/>
+                                        <input type="text" class="form-control" placeholder="Dari Tanggal"
+                                            name="dari_tanggal" value="" id="dari-tanggal" />
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Sampai Tanggal" name="sampai_tanggal" value="" id="sampai-tanggal"/>
+                                        <input type="text" class="form-control" placeholder="Sampai Tanggal"
+                                            name="sampai_tanggal" value="" id="sampai-tanggal" />
                                     </div>
                                     <div class="invalid-feedback" role="alert"></div>
                                 </div>
@@ -78,8 +80,7 @@
             </form>
         </div>
         <div class="card-datatable table-responsive text-nowrap">
-            <table class="table table-sm table-bordered table-hover"
-                id="main_table">
+            <table class="table table-sm table-bordered table-hover" id="main_table">
                 <thead class="table-light">
 
                 </thead>
@@ -96,14 +97,14 @@
 
     <script src="{{asset('main/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
     <script src="{{asset('main/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('js/datatableCustom/Datatable0-2.js')}}"></script>
+    <script src="{{asset('js/datatableCustom/Datatable-0-4.min.js')}}"></script>
     <script src="{{asset('main/libs/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
 
     <script type="text/javascript">
         let dataColumns = [];
         let dataTableInit;
-        let dataUrl = '{{($datasUrl??null)}}';
-        let columnUrl = '{{($columnsUrl??null)}}';
+        let dataUrl = '{{($datasUrl ?? null)}}';
+        let columnUrl = '{{($columnsUrl ?? null)}}';
         let formId = 'filterForm';
         let tableId = 'main_table';
         const select2 = $(`[data-control='select2']`);
@@ -111,18 +112,25 @@
         let topSpacing;
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
+
         let dtOptions = {
-            'tableId': tableId,
-            'columnUrl': columnUrl,
-            'dataUrl': dataUrl,
-            'dataColumns': dataColumns,
-            'formId': formId,
-            'thead': true,
-            'tfoot': false,
-            'pagination': true,
-            'search': true,
-            'fixedHeader': true,
+            tableId: 'main_table',
+            formId: 'filterForm',
+            columnUrl: '{{($columnsUrl ?? null)}}',
+            dataUrl: '{{($datasUrl ?? null)}}',
+            dataColumns: [],
+            thead: true,
+            tfoot: true,
+            paging: true,
+            searching: true,
+            fixedHeader: false,
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 75, 100],
+            buttons: ['copy', 'excel', 'pdf', 'print'],
+            total: true,
+            select: "multi",
         };
+
 
         let handleSearchDatatable = function () {
             const filterSearch = document.querySelector('[data-kt-docs-table-filter="search"]');
@@ -140,7 +148,7 @@
             errorClass.forEach(element => element.classList.remove('is-invalid'));
         }
 
-        function processErros(errors){
+        function processErros(errors) {
             for (const [key, value] of Object.entries(errors)) {
                 const field = $(`[name=${key}]`);
                 const errorMessage = value[0];
@@ -189,7 +197,7 @@
                 language: 'id'
             });
 
-            $('#unit').change(function() {
+            $('#unit').change(function () {
                 const csrfToken = $('meta[name="csrf-token"]').attr('content');
                 var selectedValue = $(this).val();
                 if (selectedValue != "Semua") {
@@ -206,9 +214,9 @@
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
                         },
-                        success: function(response) {
+                        success: function (response) {
                             $('#index-kelas').empty().append('<option value="">Pilih Kelas</option>');
-                            response.forEach(function(kelas) {
+                            response.forEach(function (kelas) {
                                 $('#index-kelas').append('<option value="' + kelas.kelas + '">' + kelas.kelas + '</option>');
                             });
                             $('#index-kelas').prop('disabled', false);
@@ -219,10 +227,10 @@
                 }
             });
 
-            if (dataUrl && columnUrl) {
-                getDT(tableId, columnUrl, dataUrl, dataColumns, formId, true);
-                if (formId) {
-                    let filterForm = $(`#${formId}`);
+            if (dtOptions.dataUrl && dtOptions.columnUrl) {
+                getDT(dtOptions);
+                if (dtOptions.formId) {
+                    let filterForm = $(`#${dtOptions.formId}`);
                     filterForm.on('submit', function (e) {
                         e.preventDefault();
 
@@ -231,17 +239,17 @@
 
                         if (dariTanggal != '' && sampaiTanggal == '') {
                             warningAlert("isilah sampai tanggal")
-                        }else if (dariTanggal == '' && sampaiTanggal != '') {
+                        } else if (dariTanggal == '' && sampaiTanggal != '') {
                             warningAlert("isilah dari tanggal")
                         }
-                        dataReFilter(tableId, dataUrl, dataColumns, formId);
+                        dataReFilter(dtOptions.tableId);
                     });
 
                     filterForm.on('reset', function (e) {
                         setTimeout(function () {
-                            dataReFilter(tableId, dataUrl, dataColumns, formId);
+                        dataReFilter(dtOptions.tableId);
 
-                            const select2InForm = select2.filter(`#${formId} [data-control='select2']`);
+                            const select2InForm = select2.filter(`#${dtOptions.formId} [data-control='select2']`);
 
                             if (select2InForm.length) {
                                 select2InForm.each(function () {

@@ -112,7 +112,7 @@
 
     <script src="{{asset('main/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
     <script src="{{asset('main/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('js/datatableCustom/Datatable0-2.js')}}"></script>
+    <script src="{{asset('js/datatableCustom/Datatable-0-4.min.js')}}"></script>
     <script src="{{asset('main/libs/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
 
     <script type="text/javascript">
@@ -128,17 +128,23 @@
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
         let dtOptions = {
-            'tableId': tableId,
-            'columnUrl': columnUrl,
-            'dataUrl': dataUrl,
-            'dataColumns': dataColumns,
-            'formId': formId,
-            'thead': true,
-            'tfoot': false,
-            'pagination': true,
-            'search': true,
-            'fixedHeader': true,
+            tableId: 'main_table',
+            formId: 'filterForm',
+            columnUrl: '{{($columnsUrl ?? null)}}',
+            dataUrl: '{{($datasUrl ?? null)}}',
+            dataColumns: [],
+            thead: true,
+            tfoot: true,
+            paging: true,
+            searching: true,
+            fixedHeader: false,
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 75, 100],
+            buttons: ['copy', 'excel', 'pdf', 'print'],
+            total: true,
+            select: "multi",
         };
+
 
         let handleSearchDatatable = function () {
             const filterSearch = document.querySelector('[data-kt-docs-table-filter="search"]');
@@ -235,10 +241,10 @@
                 }
             });
 
-            if (dataUrl && columnUrl) {
-                getDT(tableId, columnUrl, dataUrl, dataColumns, formId, true);
-                if (formId) {
-                    let filterForm = $(`#${formId}`);
+            if (dtOptions.dataUrl && dtOptions.columnUrl) {
+                getDT(dtOptions);
+                if (dtOptions.formId) {
+                    let filterForm = $(`#${dtOptions.formId}`);
                     filterForm.on('submit', function (e) {
 
                         e.preventDefault();
@@ -252,14 +258,14 @@
                             warningAlert("isilah dari tanggal")
                             return;
                         }
-                        dataReFilter(tableId, dataUrl, dataColumns, formId);
+                        dataReFilter(dtOptions.tableId);
                     });
 
                     filterForm.on('reset', function (e) {
                         setTimeout(function () {
-                            dataReFilter(tableId, dataUrl, dataColumns, formId);
+                        dataReFilter(dtOptions.tableId);
 
-                            const select2InForm = select2.filter(`#${formId} [data-control='select2']`);
+                            const select2InForm = select2.filter(`#${dtOptions.formId} [data-control='select2']`);
 
                             if (select2InForm.length) {
                                 select2InForm.each(function () {
